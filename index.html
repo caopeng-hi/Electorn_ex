@@ -65,6 +65,16 @@
             align-items: center;
             justify-content: center;
         }
+
+        .is-close {
+            width: 100%;
+            height: 100%;
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, .5);
+        }
     </style>
 </head>
 
@@ -81,6 +91,13 @@
         </div>
     </div>
     <div>主体内容</div>
+    <div class="is-close">
+        <h3>是否关闭当前应用</h3>
+        <p>系统可能不会保存你的所有更改</p>
+        <button id="isClose">关闭</button>
+        <button id="noClose">取消</button>
+    </div>
+    </div>
 </body>
 
 </html>
