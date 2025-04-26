@@ -18,9 +18,9 @@ app.whenReady().then(() => {
         //resizable: true, // 是否可以改变窗口大小
         title: 'cp_electron_ex',
         icon: 'logo.png',
-        // frame: true, //用户自定义菜单，设置为false 可以将默认的菜单栏隐藏
+        frame: false, //用户自定义菜单，设置为false 可以将默认的菜单栏隐藏
         //transparent: true, // 窗口是否透明
-        //autoHideMenuBar: true, // 是否自动隐藏菜单栏
+        // autoHideMenuBar: true, // 是否自动隐藏菜单栏
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false  // 可以消除require不存在的警告
