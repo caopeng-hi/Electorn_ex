@@ -1,0 +1,14 @@
+{
+  "name": "electorn_ex",
+  "version": "1.0.0",
+  "description": "electorn学习练习",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "caopeng",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^35.2.1"
+  }
+}
