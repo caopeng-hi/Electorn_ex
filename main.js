@@ -1,8 +1,8 @@
 /*
  * @Author: caopeng
  * @Date: 2025-04-30 20:51:35
- * @LastEditors: 
- * @LastEditTime: 2025-04-30 21:53:50
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2025-04-30 21:55:54
  * @Description: 请填写简介
  */
 
@@ -98,7 +98,7 @@ ipcMain.on('msg6', (ev, data) => {
 })
 ipcMain.on('msg8', (ev, data) => {
     console.log('msg8', data);
-    // 当前需要data经过mainWin转交给index页面 通过窗口id发送
+    // 需要找到sunWin 发送msg9   sunWin 是子窗口
     let sunWin = BrowserWindow.getAllWindows().find(win =>
         win !== BrowserWindow.fromId(mainWinId))
     if (sunWin) {
