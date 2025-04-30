@@ -1,12 +1,12 @@
 
-const { app, BrowserWindow,Menu } = require('electron')
+const { app, BrowserWindow, Menu, ipcMain } = require('electron')
 const remoteMain = require('@electron/remote/main') // 引入 remote 主模块
 console.log(process.platform);
-
+let mainWinId = null
 app.whenReady().then(() => {
     console.log('ready----cp');
 
-    const mainWin = new BrowserWindow({
+    let mainWin = new BrowserWindow({
         x: 100, // 左上角的x坐标   =====>不设置居中
         y: 100, // 左上角的y坐标   =====>不设置居中
         show: false, // 是否显示窗口
@@ -31,37 +31,38 @@ app.whenReady().then(() => {
 
     let menuTemp = [
         {
-            label:'文件',
-            submenu:[{
-                label:'复制',
-                click(){
+            label: '文件',
+            submenu: [{
+                label: '复制',
+                click() {
                     console.log('打开复制文件');
-                    
+
                 }
             },
             {
-                type:'separator'
+                type: 'separator'
             },
             {
-                label:'粘贴'
+                label: '粘贴'
             },
             {
-                label:'关于',
-                role:'about'
+                label: '关于',
+                role: 'about'
             }
-        ]
+            ]
         },
         {
-            label:'编辑'
+            label: '编辑'
         }
     ]
     let menu = Menu.buildFromTemplate(menuTemp)
     Menu.setApplicationMenu(menu)
-    
+
     remoteMain.initialize() // 初始化 remote
     remoteMain.enable(mainWin.webContents) // 为该窗口启用 remote
     mainWin.loadFile('index.html')
-
+    mainWin.openDevTools()
+    mainWinId = mainWin.id
     // 现在隐藏窗口，等待dom加载完成之后再让窗口显示出来
     mainWin.once('ready-to-show', () => {
         mainWin.show()
@@ -73,9 +74,26 @@ app.whenReady().then(() => {
         console.log('close----cp');
         mainWin = null
     })
+
+
 })
 
 app.on('window-all-closed', () => {
     console.log('window-all-closed----cp');
     app.quit()
+})
+
+ipcMain.on('msg6', (ev, data) => {
+    console.log('msg6', data);
+    // 当前需要data经过mainWin转交给index页面 通过窗口id发送
+    let mainWin = BrowserWindow.fromId(mainWinId)
+    mainWin.webContents.send('msg7', data)
+})
+ipcMain.on('msg8', (ev, data) => {
+    console.log('msg8', data);
+    // 当前需要data经过mainWin转交给index页面 通过窗口id发送
+    let mainWin = BrowserWindow.fromId(mainWinId)
+
+
+    mainWin.webContents.send('msg9', data)
 })

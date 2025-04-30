@@ -4,7 +4,7 @@
   "description": "electorn学习练习",
   "main": "main.js",
   "scripts": {
-    "start": "nodemon --watch main.js --exec yarn build",
+    "start": "nodemon --watch main.js --exec pnpm build",
     "build": "electron ."
   },
   "author": "caopeng",
