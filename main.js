@@ -1,3 +1,10 @@
+/*
+ * @Author: caopeng
+ * @Date: 2025-04-30 20:51:35
+ * @LastEditors: 
+ * @LastEditTime: 2025-04-30 21:53:50
+ * @Description: 请填写简介
+ */
 
 const { app, BrowserWindow, Menu, ipcMain } = require('electron')
 const remoteMain = require('@electron/remote/main') // 引入 remote 主模块
@@ -92,8 +99,11 @@ ipcMain.on('msg6', (ev, data) => {
 ipcMain.on('msg8', (ev, data) => {
     console.log('msg8', data);
     // 当前需要data经过mainWin转交给index页面 通过窗口id发送
-    let mainWin = BrowserWindow.fromId(mainWinId)
+    let sunWin = BrowserWindow.getAllWindows().find(win =>
+        win !== BrowserWindow.fromId(mainWinId))
+    if (sunWin) {
+        sunWin.webContents.send('msg9', data)
+    }
 
 
-    mainWin.webContents.send('msg9', data)
 })
