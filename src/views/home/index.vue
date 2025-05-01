@@ -8,13 +8,25 @@
         @deleteFile="handelDeleteFile"
         :files="files"
       ></file-list>
+      <div class="btn-group">
+        <el-button size="small" :icon="Plus">新建</el-button>
+        <el-button size="small" :icon="Promotion" type="primary"
+          >导入</el-button
+        >
+      </div>
     </div>
     <div class="main">main</div>
   </div>
 </template>
 <script setup>
 import { ref } from "vue";
-
+import {
+  Edit,
+  Document,
+  Delete,
+  Plus,
+  Promotion,
+} from "@element-plus/icons-vue";
 import searchFile from "./components/search-file.vue";
 import fileList from "./components/file-list.vue";
 import files from "@/assets/data/index.js";
@@ -48,6 +60,17 @@ const handelDeleteFile = (id) => {
     width: 200px;
     height: 100%;
     background-color: #eee;
+    position: relative;
+    .btn-group {
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      width: 100%;
+      height: 50px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
   }
   .main {
     height: 100%;

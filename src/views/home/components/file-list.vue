@@ -17,8 +17,8 @@
       >
     </div>
     <div>
-      <el-icon @click="editFile(file)"><Edit /></el-icon>
-      <el-icon><Delete /></el-icon>
+      <el-button :icon="Edit" circle @click="saveFile(file)"></el-button>
+      <el-button :icon="Delete" circle type="danger"></el-button>
     </div>
   </div>
 </template>
