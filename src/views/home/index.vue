@@ -1,12 +1,14 @@
 <template>
   <div class="common-layout">
     <div class="aside">
-      <search-file title="输入搜索文件名"></search-file>
+      <search-file v-model:keyword="value" title="输入搜索文件名"></search-file>
     </div>
     <div class="main">main</div>
   </div>
 </template>
 <script setup>
+import { ref } from "vue";
+const value = ref("");
 import searchFile from "./components/search-file.vue";
 </script>
 <style scoped lang="scss">

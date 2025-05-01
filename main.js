@@ -25,6 +25,7 @@ app.whenReady().then(() => {
 
     let urlLocation = isDev ? 'http://localhost:8877/' : 'myUrl'
     mainWindow.loadURL(urlLocation)
+    mainWindow.openDevTools()
     mainWindow.on('closed', () => {
         mainWindow = null; // 关闭窗口时将mainWindow设置为null
     })
