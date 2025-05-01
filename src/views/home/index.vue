@@ -17,11 +17,16 @@
     </div>
     <div class="main">
       <tabList @click-close="removeTab" :files="files" />
+      <div if="main-markdown" class="main-markdown">
+        <MdEditor previewTheme="cyanosis" ref="mdEditorRef" v-model="text" />
+      </div>
     </div>
   </div>
 </template>
 <script setup>
-import { ref } from "vue";
+import { MdEditor } from "md-editor-v3";
+import "md-editor-v3/lib/style.css";
+import { ref, onMounted } from "vue";
 import {
   Edit,
   Document,
@@ -36,6 +41,7 @@ import fileList from "./components/file-list.vue";
 import files from "@/assets/data/index.js";
 import tabList from "./components/tab-list.vue";
 const value = ref("");
+const text = ref("## 这是内容1");
 const editableTabsValue = ref("2");
 const editableTabs = ref(files);
 const handelEditFile = (id, name) => {
@@ -46,6 +52,7 @@ const handelEditFile = (id, name) => {
     alert("文件不存在");
   }
 };
+onMounted(() => {});
 const handelSaveFile = (id) => {
   console.log(id);
 };
@@ -87,6 +94,12 @@ const removeTab = (id) => {
     height: 100%;
     flex: 1;
     background-color: #ccc;
+    display: flex;
+    flex-direction: column;
+    .main-markdown {
+      flex: 1;
+      background: #5f5555;
+    }
   }
 }
 </style>
