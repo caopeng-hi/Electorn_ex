@@ -2,7 +2,7 @@
  * @Author: caopeng
  * @Date: 2025-04-30 20:51:35
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2025-05-01 09:50:08
+ * @LastEditTime: 2025-05-01 09:46:10
  * @Description: 请填写简介
  */
 
@@ -11,6 +11,7 @@ const remoteMain = require('@electron/remote/main') // 引入 remote 主模块
 console.log(process.platform);
 let mainWinId = null
 app.whenReady().then(() => {
+    console.log('ready----cp');
 
     let mainWin = new BrowserWindow({
         x: 100, // 左上角的x坐标   =====>不设置居中
@@ -18,9 +19,16 @@ app.whenReady().then(() => {
         show: false, // 是否显示窗口
         width: 600,
         height: 400,
-
+        // maxHeight: 600,
+        // maxWidth: 800,
+        //minHeight: 200,
+        //  minWidth: 300,
+        //resizable: true, // 是否可以改变窗口大小
         title: 'cp_electron_ex',
         icon: 'logo.png',
+        //frame: false, //用户自定义菜单，设置为false 可以将默认的菜单栏隐藏
+        //transparent: true, // 窗口是否透明
+        // autoHideMenuBar: true, // 是否自动隐藏菜单栏
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false  // 可以消除require不存在的警告
@@ -82,4 +90,22 @@ app.whenReady().then(() => {
 app.on('window-all-closed', () => {
     console.log('window-all-closed----cp');
     app.quit()
+})
+
+ipcMain.on('msg6', (ev, data) => {
+    console.log('msg6', data);
+    // 当前需要data经过mainWin转交给index页面 通过窗口id发送
+    let mainWin = BrowserWindow.fromId(mainWinId)
+    mainWin.webContents.send('msg7', data)
+})
+ipcMain.on('msg8', (ev, data) => {
+    console.log('msg8', data);
+    // 需要找到sunWin 发送msg9   sunWin 是子窗口
+    let sunWin = BrowserWindow.getAllWindows().find(win =>
+        win !== BrowserWindow.fromId(mainWinId))
+    if (sunWin) {
+        sunWin.webContents.send('msg9', data)
+    }
+
+
 })
