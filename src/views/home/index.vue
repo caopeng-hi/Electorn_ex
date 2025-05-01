@@ -2,14 +2,18 @@
   <div class="common-layout">
     <div class="aside">
       <search-file v-model:keyword="value" title="输入搜索文件名"></search-file>
+      <file-list :files="files"></file-list>
     </div>
     <div class="main">main</div>
   </div>
 </template>
 <script setup>
 import { ref } from "vue";
-const value = ref("");
+
 import searchFile from "./components/search-file.vue";
+import fileList from "./components/file-list.vue";
+import files from "@/assets/data/index.js";
+const value = ref("");
 </script>
 <style scoped lang="scss">
 .common-layout {
