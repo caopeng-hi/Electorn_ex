@@ -8,7 +8,13 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import 'reset.css'
+
+import router from './router'
+import ElementPlus from 'element-plus'
+import { createPinia } from 'pinia'
+import 'element-plus/dist/index.css'
+const pinia = createPinia()
 const app = createApp(App)
 
-
+app.use(ElementPlus).use(router).use(pinia)
 app.mount('#app')

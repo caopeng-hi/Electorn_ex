@@ -6,12 +6,14 @@
  * @Description: 请填写简介
 -->
 <template>
-  <router-link to="/home">home</router-link> =====>
-  <router-link to="/about">about</router-link>
-  <hr />
   <div>
-    <router-view></router-view>
+    <h1 class="text">Home</h1>
+    <el-button type="primary">按钮</el-button>
   </div>
 </template>
 <script setup></script>
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.text {
+  color: red;
+}
+</style>
