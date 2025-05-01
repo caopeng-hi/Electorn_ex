@@ -2,7 +2,12 @@
   <div class="common-layout">
     <div class="aside">
       <search-file v-model:keyword="value" title="输入搜索文件名"></search-file>
-      <file-list :files="files"></file-list>
+      <file-list
+        @saveFile="handelSaveFile"
+        @editFile="handelEditFile"
+        @deleteFile="handelDeleteFile"
+        :files="files"
+      ></file-list>
     </div>
     <div class="main">main</div>
   </div>
@@ -14,6 +19,25 @@ import searchFile from "./components/search-file.vue";
 import fileList from "./components/file-list.vue";
 import files from "@/assets/data/index.js";
 const value = ref("");
+const handelEditFile = (id, name) => {
+  const ind = files.findIndex((item) => item.id === id);
+  if (ind > -1) {
+    files[ind].title = name;
+  } else {
+    alert("文件不存在");
+  }
+};
+const handelSaveFile = (id) => {
+  console.log(id);
+};
+const handelDeleteFile = (id) => {
+  const ind = files.findIndex((item) => item.id === id);
+  if (ind > -1) {
+    files.splice(ind, 1);
+  } else {
+    alert("文件不存在");
+  }
+};
 </script>
 <style scoped lang="scss">
 .common-layout {

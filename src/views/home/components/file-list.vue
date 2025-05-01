@@ -1,11 +1,23 @@
 <template>
   <div class="file-items" v-for="(file, index) in files" :key="file.id">
-    <div>
+    <div class="inp-content">
       <el-icon> <Document /> </el-icon>
-      <span class="file-title">{{ file.title }}</span>
+      <el-input
+        @keydown.enter="handelInpBlur(file)"
+        @keydown.esc="handelInpBlur(file)"
+        @blur="handelInpBlur(file)"
+        v-if="flag === file.id"
+        v-model="activeFile"
+      ></el-input>
+      <span
+        v-else
+        @click="handelClickFileItem(file.id, file)"
+        class="file-title"
+        >{{ file.title }}</span
+      >
     </div>
     <div>
-      <el-icon><Edit /></el-icon>
+      <el-icon @click="editFile(file)"><Edit /></el-icon>
       <el-icon><Delete /></el-icon>
     </div>
   </div>
@@ -14,21 +26,36 @@
 <script setup>
 import { Edit, Document, Delete } from "@element-plus/icons-vue";
 import { ref } from "vue";
+const flag = ref("");
+const activeFile = ref("");
 const props = defineProps({
   files: {
     type: Array,
     default: () => [],
   },
 });
-
+const emit = defineEmits(["editFile", "saveFile", "deleteFile"]);
+const handelClickFileItem = (id, file) => {
+  activeFile.value = file.title;
+  flag.value = id;
+};
 const editFile = (file) => {
-  console.log(file);
+  activeFile.value = file.title;
+  flag.value = file.id;
 };
 const saveFile = (file) => {
-  console.log(file);
+  emit("saveFile", id);
 };
 const deleteFile = (file) => {
-  console.log(file);
+  emit("deleteFile", id);
+};
+const handelInpBlur = (file) => {
+  if (activeFile.value.trim().length === 0) {
+    return alert("文件名不能为空");
+  }
+  emit("editFile", file.id, activeFile.value);
+  flag.value = "";
+  activeFile.value = "";
 };
 </script>
 
@@ -48,6 +75,12 @@ const deleteFile = (file) => {
   }
   .file-title {
     margin-left: 10px;
+    cursor: pointer;
+  }
+  .inp-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 </style>
