@@ -8,7 +8,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import 'reset.css'
-
+import './style.css'
 import router from './router'
 import ElementPlus from 'element-plus'
 import { createPinia } from 'pinia'

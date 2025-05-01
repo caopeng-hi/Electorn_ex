@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@electron/remote": "^2.1.2",
+    "@element-plus/icons-vue": "^2.3.1",
     "@vitejs/plugin-vue": "^5.2.3",
     "cross-env": "^7.0.3",
     "electron": "^36.0.1",

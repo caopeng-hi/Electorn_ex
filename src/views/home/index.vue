@@ -1,19 +1,28 @@
-<!--
- * @Author: caopeng
- * @Date: 2025-05-01 11:03:47
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2025-05-01 13:18:02
- * @Description: 请填写简介
--->
 <template>
-  <div>
-    <h1 class="text">Home</h1>
-    <el-button type="primary">按钮</el-button>
+  <div class="common-layout">
+    <div class="aside">
+      <search-file title="输入搜索文件名"></search-file>
+    </div>
+    <div class="main">main</div>
   </div>
 </template>
-<script setup></script>
+<script setup>
+import searchFile from "./components/search-file.vue";
+</script>
 <style scoped lang="scss">
-.text {
-  color: red;
+.common-layout {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  .aside {
+    width: 200px;
+    height: 100%;
+    background-color: #eee;
+  }
+  .main {
+    height: 100%;
+    flex: 1;
+    background-color: #ccc;
+  }
 }
 </style>
