@@ -2,7 +2,7 @@
  * @Author: caopeng
  * @Date: 2025-04-30 20:51:35
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2025-05-01 11:09:59
+ * @LastEditTime: 2025-05-01 12:11:55
  * @Description: 请填写简介
  */
 const { app, BrowserWindow } = require('electron')
@@ -23,7 +23,7 @@ app.whenReady().then(() => {
         },
     })
 
-    let urlLocation = isDev ? 'http://localhost:8877' : 'myUrl'
+    let urlLocation = isDev ? 'http://localhost:8877/' : 'myUrl'
     mainWindow.loadURL(urlLocation)
     mainWindow.on('closed', () => {
         mainWindow = null; // 关闭窗口时将mainWindow设置为null
