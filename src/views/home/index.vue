@@ -15,7 +15,9 @@
         >
       </div>
     </div>
-    <div class="main">main</div>
+    <div class="main">
+      <tabList @click-close="removeTab" :files="files" />
+    </div>
   </div>
 </template>
 <script setup>
@@ -26,11 +28,16 @@ import {
   Delete,
   Plus,
   Promotion,
+  Select,
+  Aim,
 } from "@element-plus/icons-vue";
 import searchFile from "./components/search-file.vue";
 import fileList from "./components/file-list.vue";
 import files from "@/assets/data/index.js";
+import tabList from "./components/tab-list.vue";
 const value = ref("");
+const editableTabsValue = ref("2");
+const editableTabs = ref(files);
 const handelEditFile = (id, name) => {
   const ind = files.findIndex((item) => item.id === id);
   if (ind > -1) {
@@ -49,6 +56,10 @@ const handelDeleteFile = (id) => {
   } else {
     alert("文件不存在");
   }
+};
+
+const removeTab = (id) => {
+  console.log(id);
 };
 </script>
 <style scoped lang="scss">

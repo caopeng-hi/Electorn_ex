@@ -17,7 +17,7 @@
       >
     </div>
     <div>
-      <el-button :icon="Edit" circle @click="saveFile(file)"></el-button>
+      <el-button :icon="Edit" circle @click="editFile(file)"></el-button>
       <el-button :icon="Delete" circle type="danger"></el-button>
     </div>
   </div>
@@ -44,7 +44,7 @@ const editFile = (file) => {
   flag.value = file.id;
 };
 const saveFile = (file) => {
-  emit("saveFile", id);
+  emit("saveFile", file.id);
 };
 const deleteFile = (file) => {
   emit("deleteFile", id);
