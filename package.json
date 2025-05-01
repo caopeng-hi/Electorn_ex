@@ -5,15 +5,18 @@
   "main": "main.js",
   "scripts": {
     "start": "nodemon --watch main.js --exec pnpm build",
-    "build": "electron ."
+    "build": "electron .",
+    "dev": "vite"
   },
   "author": "caopeng",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^35.2.1"
+    "electron": "^35.2.1",
+    "vite": "^6.3.4"
   },
   "dependencies": {
     "@electron/remote": "^2.1.2",
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.10",
+    "vue": "^3.5.13"
   }
 }
