@@ -119,6 +119,11 @@ const handelSaveFile = (id) => {
 const handelDeleteFile = (id) => {
   const ind = filesList.value.findIndex((item) => item.id === id);
   if (ind > -1) {
+    const canDetFile = checkUnsave(id);
+    if (canDetFile) {
+      alert("文件未保存，无法删除");
+      return;
+    }
     filesList.value.splice(ind, 1);
     const tabInd = editableTabs.value.findIndex((item) => item.id === id);
     if (tabInd > -1) {
@@ -128,7 +133,14 @@ const handelDeleteFile = (id) => {
     alert("文件不存在");
   }
 };
-
+const checkUnsave = (id) => {
+  const ind = filesList.value.findIndex((item) => item.id === id);
+  if (ind === -1) {
+    return false;
+  }
+  const detFile = filesList.value[ind];
+  return detFile.unsave;
+};
 const removeTab = (id) => {
   const ind = editableTabs.value.findIndex((item) => item.id === id);
 
