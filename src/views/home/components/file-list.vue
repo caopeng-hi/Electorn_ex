@@ -1,5 +1,11 @@
 <template>
-  <div class="file-items" v-for="(file, index) in files" :key="file.id">
+  <div
+    ref="contentRef"
+    id="content-items"
+    class="file-items"
+    v-for="(file, index) in files"
+    :key="file.id"
+  >
     <div class="inp-content">
       <el-icon @click="handelClickFileItemShow(file)"> <Document /> </el-icon>
       <el-input
@@ -30,9 +36,10 @@
 
 <script setup>
 import { Edit, Document, Delete } from "@element-plus/icons-vue";
-import { ref } from "vue";
+import { ref, nextTick } from "vue";
 const flag = ref("");
 const activeFile = ref("");
+const contentRef = ref(null);
 const props = defineProps({
   files: {
     type: Array,
@@ -40,6 +47,7 @@ const props = defineProps({
   },
 });
 const emit = defineEmits(["editFile", "saveFile", "deleteFile", "show-file"]);
+
 const handelClickFileItem = (id, file) => {
   activeFile.value = file.title;
   flag.value = id;
@@ -56,16 +64,36 @@ const deleteFile = (id) => {
 };
 const handelInpBlur = (file) => {
   if (activeFile.value.trim().length === 0) {
-    return alert("文件名不能为空");
+    deleteFile(flag.value);
+    return;
   }
-  emit("editFile", file.id, activeFile.value);
-  flag.value = "";
-  activeFile.value = "";
+  const ind = props.files.findIndex((item) => item.id === flag.value);
+  if (ind === -1) return;
+  const title = props.files[ind].title.trim();
+  if (title) {
+    emit("editFile", file.id, activeFile.value);
+    flag.value = "";
+    activeFile.value = "";
+  } else {
+    deleteFile(flag.value);
+  }
 };
 
 const handelClickFileItemShow = (file) => {
   emit("show-file", file);
 };
+
+const setActiveFile = (file) => {
+  activeFile.value = file.title;
+  flag.value = file.id;
+  setTimeout(() => {
+    const inp_list = document.querySelectorAll("#content-items input");
+    inp_list[0].focus();
+  }, 100);
+};
+defineExpose({
+  setActiveFile,
+});
 </script>
 
 <style lang="scss" scoped>

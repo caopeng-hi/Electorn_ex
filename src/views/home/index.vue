@@ -8,9 +8,12 @@
         @deleteFile="handelDeleteFile"
         @show-file="handelShowFile"
         :files="filesList"
+        ref="fileListRef"
       ></file-list>
       <div class="btn-group">
-        <el-button size="small" :icon="Plus">新建</el-button>
+        <el-button @click="handelCreateFile" size="small" :icon="Plus"
+          >新建</el-button
+        >
         <el-button size="small" :icon="Promotion" type="primary"
           >导入</el-button
         >
@@ -46,6 +49,7 @@ import searchFile from "./components/search-file.vue";
 import fileList from "./components/file-list.vue";
 import files from "@/assets/data/index.js";
 import tabList from "./components/tab-list.vue";
+const fileListRef = ref(null);
 const value = ref("");
 const text = ref("");
 const filesList = ref(files);
@@ -149,10 +153,28 @@ const removeTab = (id) => {
   }
 
   if (editableTabs.value.length > 0) {
-    editableTabsValue.value = editableTabs.value[0].id;
+    const activeInd = editableTabs.value.findIndex(
+      (it) => it.id === editableTabsValue.value
+    );
+    if (activeInd === -1) {
+      editableTabsValue.value = editableTabs.value[0].id;
+    }
   } else {
     editableTabsValue.value = "";
   }
+};
+
+const handelCreateFile = () => {
+  // 判读上一次添加的文件
+  const id = Date.now();
+  const file = {
+    id,
+    title: "",
+    body: "",
+    createTime: Date.now(),
+  };
+  filesList.value.push(file);
+  fileListRef.value.setActiveFile(file);
 };
 </script>
 <style scoped lang="scss">
