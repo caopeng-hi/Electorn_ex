@@ -18,7 +18,12 @@
     </div>
     <div>
       <el-button :icon="Edit" circle @click="editFile(file)"></el-button>
-      <el-button :icon="Delete" circle type="danger" @click=""></el-button>
+      <el-button
+        :icon="Delete"
+        circle
+        type="danger"
+        @click="deleteFile(file.id)"
+      ></el-button>
     </div>
   </div>
 </template>
@@ -46,7 +51,7 @@ const editFile = (file) => {
 const saveFile = (file) => {
   emit("saveFile", file.id);
 };
-const deleteFile = (file) => {
+const deleteFile = (id) => {
   emit("deleteFile", id);
 };
 const handelInpBlur = (file) => {

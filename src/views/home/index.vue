@@ -7,7 +7,7 @@
         @editFile="handelEditFile"
         @deleteFile="handelDeleteFile"
         @show-file="handelShowFile"
-        :files="files"
+        :files="filesList"
       ></file-list>
       <div class="btn-group">
         <el-button size="small" :icon="Plus">新建</el-button>
@@ -74,15 +74,15 @@ watch(
         (item) => item.id === editableTabsValue.value
       );
       if (changeIdx > -1) {
-        if (editableTabs.value[changeIdx].unsave) {
+        if (editableTabs.value[ind].unsave) {
           filesList.value[changeIdx].changeText = newVal;
         } else {
-          const body = editableTabs.value[changeIdx].body;
+          const body = editableTabs.value[ind].body;
           if (body !== newVal) {
-            editableTabs.value[changeIdx].unsave = true;
+            editableTabs.value[ind].unsave = true;
             filesList.value[changeIdx].changeText = newVal;
           } else {
-            editableTabs.value[changeIdx].unsave = undefined;
+            editableTabs.value[ind].unsave = undefined;
           }
         }
       }
@@ -103,7 +103,11 @@ const handelShowFile = (file) => {
 const handelEditFile = (id, name) => {
   const ind = files.findIndex((item) => item.id === id);
   if (ind > -1) {
-    files[ind].title = name;
+    filesList.value[ind].title = name;
+    const tabInd = editableTabs.value.findIndex((item) => item.id === id);
+    if (tabInd > -1) {
+      editableTabs.value[tabInd].title = name;
+    }
   } else {
     alert("文件不存在");
   }
@@ -113,9 +117,13 @@ const handelSaveFile = (id) => {
   console.log(id);
 };
 const handelDeleteFile = (id) => {
-  const ind = files.findIndex((item) => item.id === id);
+  const ind = filesList.value.findIndex((item) => item.id === id);
   if (ind > -1) {
-    files.splice(ind, 1);
+    filesList.value.splice(ind, 1);
+    const tabInd = editableTabs.value.findIndex((item) => item.id === id);
+    if (tabInd > -1) {
+      editableTabs.value.splice(tabInd, 1);
+    }
   } else {
     alert("文件不存在");
   }
