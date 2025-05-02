@@ -13,8 +13,8 @@
       {{ file.title }}
       <div class="btn-content">
         <div v-if="file.unsave" class="btn-unsave" @click.stop></div>
-        <div class="btn-close" @click="handelClickClose(file.id)">
-          <el-icon color="#fff" size="12"><Close /></el-icon>
+        <div class="btn-close" @click.stop="handelClickClose(file.id)">
+          <el-icon :color="'#fff'" size="12"><Close /></el-icon>
         </div>
       </div>
     </div>
@@ -24,7 +24,7 @@
 <script setup>
 import { ref } from "vue";
 import { Close } from "@element-plus/icons-vue";
-const activeFile = ref("");
+const activeFile = defineModel("active-file");
 const props = defineProps({
   files: {
     type: Array,

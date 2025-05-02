@@ -1,7 +1,7 @@
 <template>
   <div class="file-items" v-for="(file, index) in files" :key="file.id">
     <div class="inp-content">
-      <el-icon> <Document /> </el-icon>
+      <el-icon @click="handelClickFileItemShow(file)"> <Document /> </el-icon>
       <el-input
         @keydown.enter="handelInpBlur(file)"
         @keydown.esc="handelInpBlur(file)"
@@ -18,7 +18,7 @@
     </div>
     <div>
       <el-button :icon="Edit" circle @click="editFile(file)"></el-button>
-      <el-button :icon="Delete" circle type="danger"></el-button>
+      <el-button :icon="Delete" circle type="danger" @click=""></el-button>
     </div>
   </div>
 </template>
@@ -34,7 +34,7 @@ const props = defineProps({
     default: () => [],
   },
 });
-const emit = defineEmits(["editFile", "saveFile", "deleteFile"]);
+const emit = defineEmits(["editFile", "saveFile", "deleteFile", "show-file"]);
 const handelClickFileItem = (id, file) => {
   activeFile.value = file.title;
   flag.value = id;
@@ -56,6 +56,10 @@ const handelInpBlur = (file) => {
   emit("editFile", file.id, activeFile.value);
   flag.value = "";
   activeFile.value = "";
+};
+
+const handelClickFileItemShow = (file) => {
+  emit("show-file", file);
 };
 </script>
 
