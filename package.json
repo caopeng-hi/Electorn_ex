@@ -6,7 +6,9 @@
   "scripts": {
     "start": "concurrently \"cross-env BROWSER=none yarn dev\" \"wait-on http://localhost:8877/ && yarn  build\"",
     "build": "electron .",
-    "dev": "vite"
+    "dev": "vite",
+    "zbuild": "pnpm build:renderer && electron-builder",
+    "build:renderer": "vite build"
   },
   "author": "caopeng",
   "license": "ISC",
