@@ -14,7 +14,6 @@ import ElementPlus from 'element-plus'
 import { createPinia } from 'pinia'
 import 'element-plus/dist/index.css'
 
-import Prism from 'prismjs';
 const pinia = createPinia()
 const app = createApp(App)
 
