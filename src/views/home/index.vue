@@ -14,7 +14,7 @@
         <el-button @click="handelCreateFile" size="small" :icon="Plus"
           >新建</el-button
         >
-        <el-button size="small" :icon="Promotion" type="primary"
+        <el-button @click="handelImportFile" size="small" :icon="Promotion" type="primary"
           >导入</el-button
         >
       </div>
@@ -49,6 +49,8 @@ import searchFile from "./components/search-file.vue";
 import fileList from "./components/file-list.vue";
 import files from "@/assets/data/index.js";
 import tabList from "./components/tab-list.vue";
+
+let remote = window.require("@electron/remote");
 const fileListRef = ref(null);
 const value = ref("");
 const text = ref("");
@@ -176,6 +178,22 @@ const handelCreateFile = () => {
   filesList.value.push(file);
   fileListRef.value.setActiveFile(file);
 };
+
+const handelImportFile=async()=>{
+const {filePaths} = await  remote.dialog.showOpenDialog({
+ bottonLable:'请选择',
+ title:"请选择文件",
+ properties:[['openFile','multiSelections']],
+ filters:[
+ {
+  name:'md文档',extensions:['md']
+ },
+ {
+  name:"其他文档类型",extensions:['js','json','html']
+ }
+ ]
+ })
+}
 </script>
 <style scoped lang="scss">
 .common-layout {

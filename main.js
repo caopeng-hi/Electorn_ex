@@ -6,12 +6,13 @@
  * @Description: 请填写简介
  */
 const { app, BrowserWindow } = require('electron')
-
+const remoteMain = require('@electron/remote/main');
 const isDev = require('electron-is-dev')
 
 let mainWindow = null;
 
 app.whenReady().then(() => {
+    remoteMain.initialize(); // 初始化 remote
     mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
@@ -19,10 +20,11 @@ app.whenReady().then(() => {
         minWidth: 300,
         webPreferences: {
             nodeIntegration: true, // 允许在渲染进程中使用Node.js API
+            
             contextIsolation: false, // 禁用上下文隔离
         },
     })
-
+    remoteMain.enable(mainWindow.webContents); // 为窗口启用 remote
     let urlLocation = isDev ? 'http://localhost:8877/' : 'myUrl'
     mainWindow.loadURL(urlLocation)
     mainWindow.openDevTools()
