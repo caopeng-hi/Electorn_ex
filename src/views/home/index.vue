@@ -193,6 +193,27 @@ const {filePaths} = await  remote.dialog.showOpenDialog({
  }
  ]
  })
+
+ if(filePaths.length>0){
+      const calidPath = filePaths.filters(path=>{
+          const existed =  Object.values(fileList.value).find((file)=>{
+            return file.path  == path
+          })
+
+          return ! existed 
+      })
+
+
+      const packageData = calidPath.map(it=>{
+        return {
+          id:v4(),
+          title:path.basename(it,'.md'),
+          path:it
+        }
+      })
+
+      fileList.value = [...fileList.value,...packageData]
+ }
 }
 </script>
 <style scoped lang="scss">
