@@ -65,9 +65,13 @@ watch(
       text.value = filesList.value[ind].changeText || filesList.value[ind].body;
     } else {
       text.value = "";
+      console.log('as')
     }
   }
 );
+
+
+
 
 watch(
   () => text.value,
@@ -118,7 +122,12 @@ const handelEditFile = (id, name) => {
     alert("文件不存在");
   }
 };
-onMounted(() => {});
+onMounted(() => {
+
+
+
+  
+});
 const handelSaveFile = (id) => {
   console.log(id);
 };
@@ -187,7 +196,7 @@ const {filePaths} = await  remote.dialog.showOpenDialog({
  filters:[
  {
   name:'md文档',extensions:['md']
- },
+ }, 
  {
   name:"其他文档类型",extensions:['js','json','html']
  }
@@ -195,23 +204,13 @@ const {filePaths} = await  remote.dialog.showOpenDialog({
  })
 
  if(filePaths.length>0){
-      const calidPath = filePaths.filters(path=>{
-          const existed =  Object.values(fileList.value).find((file)=>{
-            return file.path  == path
-          })
-
-          return ! existed 
-      })
-
-
       const packageData = calidPath.map(it=>{
         return {
           id:v4(),
           title:path.basename(it,'.md'),
-          path:it
+          path:it 
         }
       })
-
       fileList.value = [...fileList.value,...packageData]
  }
 }
