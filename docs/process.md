@@ -43,3 +43,29 @@ process 是 Node.js 中的一个全局对象，提供了与当前 Node.js 进程
 - process.arch()：返回当前 Node.js 进程的架构。如 'x64', 'arm'
 
 ###### 运行时相关属性
+
+- process.cwd() : 返回当前工作目录的绝对路径。
+- process.env : 返回一个包含用户环境变量的对象。
+- process.chdir(directory) : 改变当前工作目录。
+- process.uptime() : 返回 Node.js 进程已运行的时间（以秒为单位）。
+- process.memoryUsage() : 返回一个对象，包含 Node.js 进程的内存使用情况。
+  - res: 常驻集大小
+  - heapTotal: V8 堆内存的总量
+  - heapUsed: V8 堆内存的使用量
+  - external: 外部内存的使用量
+- process.cpuUsage([previousValue]) : 返回一个对象，包含 Node.js 进程的 CPU 使用情况。
+  - user: 用户 CPU 时间，单位为毫秒
+  - system: 系统 CPU 时间，单位为毫秒
+
+###### 输入输出相关属性
+
+- process.stdout : 标准输出流，用于向控制台输出数据。
+- process.stderr : 标准错误流，用于向控制台输出错误信息。
+- process.stdin : 标准输入流，用于从控制台读取数据。
+
+###### 控制进程相关方法
+
+- process.exit([code])：终止当前 Node.js 进程，并返回指定的退出码。默认为 0，表示正常退出。
+- process.abort()：强制终止当前 Node.js 进程，并生成一个未捕获的异常。
+- process.kill(pid, [signal])：向指定的进程发送信号。默认为 'SIGTERM'，表示终止进程。
+- process.nextTick(callback)：将回调函数添加到下一个事件循环的队列中，并在当前操作完成后执行。
